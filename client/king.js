@@ -27,10 +27,10 @@ function swapObj(changedBoard, x, y, i, j) {
 }
 
 export default class King {
-  constructor(color, img) {
+  constructor(color) {
     this.color = color;
     this.coin = "king";
-    this.img = img;
+    this.img = color + this.coin + ".png";
     this.moved = false;
   }
 

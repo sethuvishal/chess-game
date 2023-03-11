@@ -146,7 +146,7 @@ function kingMovements(x, y, movements, board, color) {
 }
 export function check(x, y, board, troops = false, Color) {
   let movements = [];
-  let color = Color || board[x][y].obj.color;
+  let color = Color || board[x][y].obj?.color;
   diagonalMove(x, y, movements, board, color);
   straightMove(x, y, movements, board, color);
   knightMove(x, y, movements, board, color);

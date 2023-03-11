@@ -1,10 +1,10 @@
 import { diagonalMove } from "./pieceMove.js";
 
 export default class Bishop {
-  constructor(color, img) {
+  constructor(color) {
     this.color = color;
     this.coin = "bishop";
-    this.img = img;
+    this.img = color + this.coin + ".png";
   }
 
   move(x, y, movements, board) {

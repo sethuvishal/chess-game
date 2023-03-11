@@ -1,10 +1,10 @@
 import { diagonalMove, straightMove } from "./pieceMove.js";
 
 export default class Queen {
-  constructor(color, img) {
+  constructor(color) {
     this.color = color;
     this.coin = "queen";
-    this.img = img;
+    this.img = color + this.coin + ".png";
   }
 
   move(x, y, movements, board) {

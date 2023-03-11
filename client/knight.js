@@ -1,10 +1,10 @@
 import { knightMove } from "./pieceMove.js";
 
 export default class Knight {
-  constructor(color, img) {
+  constructor(color) {
     this.color = color;
     this.coin = "knight";
-    this.img = img;
+    this.img = color + this.coin + ".png";
   }
 
   move(x, y, movements, board) {

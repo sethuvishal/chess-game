@@ -1,7 +1,7 @@
 import { whiteState, blackState } from "./kingState.js";
 import { check } from "./check.js";
 
-function pushEl(board, changedBoard) {
+function deepCopyOfBoard(board, changedBoard) {
   for (var i = 0; i < board.length; i++) {
     changedBoard.push([]);
     for (var j = 0; j < board[i].length; j++) {
@@ -27,16 +27,16 @@ function swapObj(changedBoard, x, y, i, j) {
 }
 
 export default class Pawn {
-  constructor(color, img) {
+  constructor(color) {
     this.color = color;
     this.coin = "pawn";
-    this.img = img;
+    this.img = color + this.coin + ".png";
   }
 
   move(x, y, movements, board) {
     const curState = this.color === "white" ? whiteState : blackState;
     let changedBoard = new Array();
-    pushEl(board, changedBoard);
+    deepCopyOfBoard(board, changedBoard);
     if (this.color === "white") {
       if (x === 6) {
         for (let i = 1; i <= 2; i++) {
@@ -44,11 +44,18 @@ export default class Pawn {
             if (board[x - i][y].obj === null)
               movements.push({ x: x - i, y: y });
             else break;
-          } else break;
+          }
         }
       } else {
         if (x - 1 >= 0 && !canMove(x, y, x - 1, y, changedBoard, curState)) {
-          if (!board[x - 1][y].obj) movements.push({ x: x - 1, y: y });
+          if (!board[x - 1][y].obj) {
+            if (x - 1 === 0) {
+              movements.push({ x: x - 1, y: y, changeTo: "queen" });
+              movements.push({ x: x - 1, y: y, changeTo: "rook" });
+              movements.push({ x: x - 1, y: y, changeTo: "knight" });
+              movements.push({ x: x - 1, y: y, changeTo: "bishop" });
+            } else movements.push({ x: x - 1, y: y });
+          }
         }
       }
       if (
@@ -58,7 +65,32 @@ export default class Pawn {
         board[x - 1][y - 1].obj.color !== this.color
       ) {
         if (!canMove(x, y, x - 1, y - 1, changedBoard, curState)) {
-          movements.push({ x: x - 1, y: y - 1, enemy: true });
+          if (x - 1 === 0) {
+            movements.push({
+              x: x - 1,
+              y: y - 1,
+              changeTo: "queen",
+              enemy: true,
+            });
+            movements.push({
+              x: x - 1,
+              y: y - 1,
+              changeTo: "rook",
+              enemy: true,
+            });
+            movements.push({
+              x: x - 1,
+              y: y - 1,
+              changeTo: "knight",
+              enemy: true,
+            });
+            movements.push({
+              x: x - 1,
+              y: y - 1,
+              changeTo: "bishop",
+              enemy: true,
+            });
+          } else movements.push({ x: x - 1, y: y - 1, enemy: true });
         }
       }
 
@@ -69,7 +101,32 @@ export default class Pawn {
         board[x - 1][y + 1].obj.color !== this.color
       ) {
         if (!canMove(x, y, x - 1, y + 1, changedBoard, curState)) {
-          movements.push({ x: x - 1, y: y + 1, enemy: true });
+          if (x - 1 === 0) {
+            movements.push({
+              x: x - 1,
+              y: y + 1,
+              changeTo: "queen",
+              enemy: true,
+            });
+            movements.push({
+              x: x - 1,
+              y: y + 1,
+              changeTo: "rook",
+              enemy: true,
+            });
+            movements.push({
+              x: x - 1,
+              y: y + 1,
+              changeTo: "knight",
+              enemy: true,
+            });
+            movements.push({
+              x: x - 1,
+              y: y + 1,
+              changeTo: "bishop",
+              enemy: true,
+            });
+          } else movements.push({ x: x - 1, y: y + 1, enemy: true });
         }
       }
     }
@@ -80,14 +137,21 @@ export default class Pawn {
           if (!canMove(x, y, x + i, y, changedBoard, curState)) {
             if (!board[x + i][y].obj) movements.push({ x: x + i, y: y });
             else break;
-          } else break;
+          }
         }
       } else {
         if (
           x + 1 < board.length &&
           !canMove(x, y, x + 1, y, changedBoard, curState)
         ) {
-          if (!board[x + 1][y].obj) movements.push({ x: x + 1, y: y });
+          if (!board[x + 1][y].obj) {
+            if (x + 1 === board.lenght - 1) {
+              movements.push({ x: x + 1, y: y, changeTo: "queen" });
+              movements.push({ x: x + 1, y: y, changeTo: "rook" });
+              movements.push({ x: x + 1, y: y, changeTo: "knight" });
+              movements.push({ x: x + 1, y: y, changeTo: "bishop" });
+            } else movements.push({ x: x + 1, y: y });
+          }
         }
       }
       if (
@@ -97,7 +161,32 @@ export default class Pawn {
         board[x + 1][y - 1].obj.color !== this.color
       ) {
         if (!canMove(x, y, x + 1, y - 1, changedBoard, curState)) {
-          movements.push({ x: x + 1, y: y - 1, enemy: true });
+          if (x + 1 === 7) {
+            movements.push({
+              x: x + 1,
+              y: y - 1,
+              changeTo: "queen",
+              enemy: true,
+            });
+            movements.push({
+              x: x + 1,
+              y: y - 1,
+              changeTo: "rook",
+              enemy: true,
+            });
+            movements.push({
+              x: x + 1,
+              y: y - 1,
+              changeTo: "knight",
+              enemy: true,
+            });
+            movements.push({
+              x: x + 1,
+              y: y - 1,
+              changeTo: "bishop",
+              enemy: true,
+            });
+          } else movements.push({ x: x + 1, y: y - 1, enemy: true });
         }
       }
       if (
@@ -107,7 +196,32 @@ export default class Pawn {
         board[x + 1][y + 1].obj.color !== this.color
       ) {
         if (!canMove(x, y, x + 1, y + 1, changedBoard, curState)) {
-          movements.push({ x: x + 1, y: y + 1, enemy: true });
+          if (x + 1 === 7) {
+            movements.push({
+              x: x + 1,
+              y: y + 1,
+              changeTo: "queen",
+              enemy: true,
+            });
+            movements.push({
+              x: x + 1,
+              y: y + 1,
+              changeTo: "rook",
+              enemy: true,
+            });
+            movements.push({
+              x: x + 1,
+              y: y + 1,
+              changeTo: "knight",
+              enemy: true,
+            });
+            movements.push({
+              x: x + 1,
+              y: y + 1,
+              changeTo: "bishop",
+              enemy: true,
+            });
+          } else movements.push({ x: x + 1, y: y + 1, enemy: true });
         }
       }
     }

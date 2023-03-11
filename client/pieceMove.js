@@ -2,9 +2,9 @@ import { whiteState, blackState } from "./kingState.js";
 import { check } from "./check.js";
 
 function pushEl(board, changedBoard) {
-  for (var i = 0; i < board.length; i++) {
+  for (var i = 0; i < board?.length; i++) {
     changedBoard.push([]);
-    for (var j = 0; j < board[i].length; j++) {
+    for (var j = 0; j < board[i]?.length; j++) {
       let p1 = { ...board[i][j] };
       changedBoard[i].push(p1);
     }

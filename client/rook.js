@@ -1,10 +1,10 @@
 import { straightMove } from "./pieceMove.js";
 
 export default class Rook {
-  constructor(color, img) {
+  constructor(color) {
     this.color = color;
     this.coin = "rook";
-    this.img = img;
+    this.img = color + this.coin + ".png";
     this.moved = false;
   }
 
